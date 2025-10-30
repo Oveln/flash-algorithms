@@ -1,0 +1,52 @@
+[package]
+authors = ["Oveln <oveln@outlook.com>"]
+edition = "2024"
+readme = "README.md"
+name = "ch32v208-flash-algorithm"
+version = "0.1.0"
+
+[dependencies]
+ch32-metapac = { features = [
+    "ch32v208wbu6",
+], git = "https://github.com/ch32-rs/ch32-metapac", rev = "b1cbc7a98e43af3fd3170821654784e2c01cb26b" }
+
+flash-algorithm = { version = "0.6.0", default-features = false }
+panic-halt = "1.0.0"
+
+# this lets you use `cargo fix`!
+[[bin]]
+name = "ch32v208-flash-algorithm"
+test = false
+bench = false
+
+[profile.dev]
+codegen-units = 1
+debug = 2
+debug-assertions = true
+incremental = false
+opt-level = 3
+overflow-checks = true
+
+[profile.release]
+codegen-units = 1
+debug = 2
+debug-assertions = false
+incremental = false
+lto = "fat"
+opt-level = 's'
+overflow-checks = false
+
+# do not optimize proc-macro crates = faster builds from scratch
+[profile.dev.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0
+overflow-checks = false
+
+[profile.release.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0
+overflow-checks = false

@@ -1,29 +1,29 @@
-name: ch32v3 Series
+name: CH32V3 Series
 variants:
-  - name: ch32v307
+- name: CH32V208
+  cores:
+  - name: main
+    type: riscv
+    core_access_options: !Riscv {}
+  memory_map:
+  - !Nvm
+    range:
+      start: 0x0
+      end: 0x20000
     cores:
-      - name: main
-        type: riscv
-        core_access_options: !Riscv {}
-    memory_map:
-      - !Ram
-          range:
-            start: 0x20000000
-            end: 0x20010000
-          is_boot_memory: false
-          cores:
-            - main
-      - !Nvm
-          range:
-            start: 0x0000000
-            end: 0x0040000
-          is_boot_memory: true
-          cores:
-            - main
-    flash_algorithms:
-      - ch32v3xx-flash-algo
+    - main
+    access:
+      boot: true
+  - !Ram
+    range:
+      start: 0x20000000
+      end: 0x20010000  # Assuming 64KB SRAM
+    cores:
+    - main
+  flash_algorithms:
+  - ch32v307
 flash_algorithms:
-  - name: ch32v3xx-flash-algo
+  - name: ch32v307
     description: Flash algoritm for the ch32v3xx series
     cores:
       - main
